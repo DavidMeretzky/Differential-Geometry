@@ -1,0 +1,253 @@
+\documentclass{article}
+
+\usepackage{algorithmic, amsmath, amsthm, amsfonts, amssymb,commath, enumerate, tikz, tikz-cd, color, mathrsfs} %tikz is for drawing lattices %tikz-cd is for commutative diagrams
+															%color is for making notes in red 
+															%mathrsfs is for power set font
+%\usepackage[mathscr]{eucal} %mathscr gives nice script fonts
+
+\newtheoremstyle{problemstyle}  % <name> This is my problemstyle. use begin{problem}.
+        {12pt}                                               % <space above>
+        {}                                               % <space below>
+        {}                               % <body font>
+        {}                                                  % <indent amount}
+        {\bfseries}                 % <theorem head font>
+        {\normalfont\bfseries.}         % <punctuation after theorem head>
+        {.5em}                                          % <space after theorem head>
+        {}                                                  % <theorem head spec (can be left empty, meaning `normal')>
+
+
+\theoremstyle{problemstyle}
+\newtheorem{problem}{Problem}
+
+\theoremstyle{problemstyle}
+\newtheorem{solution}{Solution}
+
+\theoremstyle{problemstyle}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{problemstyle}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{problemstyle}
+\newtheorem{theorem}{Theorem}
+
+\setlength\parindent{0pt}
+
+\title{ \vspace{-10ex} %uncomment to remove vertical space
+%title of assignment goes here e.g. "Math 721 Homework 3"
+notes on Differential Geometry\\
+Noel J. Hicks
+Chapter 1 Problems
+}
+
+
+\author{David L. Meretzky
+}
+
+
+\date{%date assignment is due goes here
+Sunday December 16th, 2018
+} 
+
+
+\renewcommand*{\thefootnote}{$\dagger$} %changes default footnote marking to a dagger instead of a number (numbers are sometimes mistaken for citations)
+
+\begin{document}
+
+\maketitle
+
+\section{Manifolds}
+
+\subsection{Manifolds}
+
+These notes are for the most part directly from \cite{Hicks65}. 
+
+\begin{definition}
+Let $r > 0$ and $A \subset R^n$ be an open set. A map $f:A \rightarrow R$ is called $C^r$ if it is $r$ times continuously differentiable.   
+\end{definition}
+
+\begin{definition}\label{projection}
+Let $u_i$ denote the usual projection maps of the $i$ coordinate of $R^n$ onto $R$.  Let $r > 0$ and $A \subset R^n$ be an open set. A map $f:A \rightarrow R^m$ is called $C^r$ if $u_i \circ f$ is $C^r$ for all of the projection maps.  
+\end{definition}
+
+\begin{definition}
+If $f$ is $C^r$ for all $r \in N^+$ we say that $f$ is $C^\infty$. If $f$ is real analytic, we say $f$ is $C^\omega$. If $f$ is simply continuous then $f$ is $C^0$.  
+\end{definition}
+
+\begin{definition}\label{chart}
+Let $M$ be a set. A chart on $M$ is a pair $(\phi,U)$ such that $U$ is a subset of $M$ and $\phi$ is a 1-1 map of $U$ onto an open subset of $R^n$. We call the sets $U$ coordinate domains. 
+\end{definition}
+
+\begin{definition}
+Two charts, $(\phi,U)$ and $(\theta,V)$ on $M$ are $C^r$ related if $\phi \circ \theta^{-1}$ and $\theta \circ \phi^{-1}$ are $C^r$ on $\theta(U \cap V)$ and $\phi(U \cap V)$ respectively. 
+\end{definition}
+
+\begin{definition}\label{subatlas}
+A $C^r$ subatlas of a set $M$ is a collection of $C^r$ related charts, $\{(\theta_h,U_h)\}_{h \in H}$, such that $$\bigcup_{h \in H}U_h = M.$$
+\end{definition}
+
+\begin{proposition}\label{existance of maximal atlases}
+Every subatlas is contained in a maximal subatlas called an atlas. 
+\end{proposition}
+
+\begin{proof}
+Let $\{(\theta_h,U_h)\}_{h \in H}$ be a subatlas. Order the collection of all subatlases by inclusion. This clearly forms a poset. Take any chain which contains $\{(\theta_h,U_h)\}_{h \in H}$.  Let $(\theta_1,U_1)$ and $(\theta_2,U_2)$ be charts in the union. There exists a minimal subatlas somewhere in the chain which contains both charts, therefore they are $C^r$ equivalent. It is clear that the union of all charts in the union is all of $M$. Thus the union of all subatlases in this chain is again a subatlas. Apply Zorn's Lemma. 
+\end{proof}
+
+\begin{proposition}
+Every subatlas induces a topology on $M$ and this topology is the same as the topology induced by the maximal subatlas. Let $\{(\phi_h,U_h)\}_{h \in H}$ be a subatlas on $M$. For all open sets $A$ of $R^n$, define the topology of $M$ to be the topology with sub-base given by the sets $\phi_h^{-1}(U_h \cap A)$.
+\end{proposition}
+
+\begin{proof}
+Suppose $(\phi,U)$ is a chart which is compatible with a subatlas $\{(\phi_h,U_h)\}_{h \in H}$, but is not contained in that atlas, we will show that $(\phi,U) \cup \{(\phi_h,U_h)\}_{h \in H}$ induces the same topology on $M$ as $\{(\phi_h,U_h)\}_{h \in H}$.\\\\
+Pick an open set $A$ in $R^n$, we show that $\phi^{-1}(U \cap A)$ was already open in the topology induced by $\{(\phi_h,U_h)\}_{h \in H}$. Note that $U \cap A \cap U_h$ is an open set in $R^n$ for all $h$. Since $\phi_h\circ\phi^{-1}$ is an open map, $\phi_h\circ\phi^{-1}(U\cap A \cap U_h)$ is open in $R^n$. It follows that $\phi_h^{-1}(\phi_h\circ\phi^{-1}(U\cap A \cap U_h)) = \phi^{-1}(U\cap A \cap U_h)$ is open in $M$ for all $h$. Clearly, $$U \cap A = \bigcup_{h \in H}U\cap A\cap U_h$$ from which it follows that $$\phi^{-1}(U \cap A) = \bigcup_{h \in H}\phi^{-1}(U\cap A\cap U_h)$$ is open in $M$. 
+\end{proof}
+
+\begin{proposition}
+The content of definition \ref{subatlas} does not change if we alter definition \ref{chart} so that each $\theta$ is a 1-1 map of $U$ onto either an open subset of $R^n$, an open ball in $R^n$, or all of $R^n$. \cite{Spivak99}
+\end{proposition}
+
+\begin{proof}
+By a proper choice of function, for instance a renormalization of arctangent, we can obtain a homeomorphism of an open ball in $R$ to all of $R$. The equivalence of definition \ref{subatlas} when we use either open balls in $R^n$ or all of $R^n$ follows with a little thought. It remains to show the equivalence in the case of open balls and open sets.\\\\ 
+Let $\{(\phi_h,U_h)\}_{h \in H}$ be a subatlas where each $\phi_h(U_h)$ is an open set of $R^n$. Let $p \in M$, there exists a chart $(\phi,U)$ such that $p \in U$ and $\phi(U)$ is an open set in $R^n$ containing $\phi(p)$. Pick an open ball $B$ centered around $\phi(p)$ contained entirely in $\phi(U)$. Then $\phi^{-1}(B) \subseteq U$. The collection $\{(\phi_p,\phi_p^{-1}(B_p))\}_{p \in M}$ is a subatlas which generates the same maximal atlas as $\{(\phi_h,U_h)\}_{h \in H}$ since $\phi_h\circ \phi_p^{-1}$ is the $C^r$ identity on $B_p$. \footnote{Milnor told us that it is not enough to say that $\{(\phi_p,\phi_p^{-1}(B_p))\}_{p \in M}$ and $\{(\phi_h,U_h)\}_{h \in H}$ generate the same topology on $M$.}
+\end{proof}
+
+\begin{definition}
+The association to a maximal atlas gives us an equivalence relation and therefore a partition of the subatlases. We call an equivalence class a topological/differential/smooth/analytic structure in the cases $C^0$, $C^r$, $C^\infty$, and $C^\omega$ respectively.  
+\end{definition}
+
+\begin{definition}
+A topological/differential/smooth/analytic manifold is a set $M$ together with a structure $\Sigma$, of the associated type. \footnote{For now we hold off on the requirement that $M$ be second countable and Hausdorff.}
+\end{definition}
+
+\subsection{Smooth Functions}
+
+Let $A$ be a subset of a $C^r$ manifold $M$.
+
+\begin{definition}
+Let $f:A\rightarrow R$. We say that $f$ is $C^s$ if $f \circ \phi^{-1}$ is $C^s$ from $\phi(A \cap U)$ for every $C^r$ chart $(\phi, U)$. 
+\end{definition}
+
+\begin{definition}\label{C^s map of manifolds}
+If $N$ is a $C^k$ manifold and $f:A \rightarrow N$ continuous, we say that $f$ is $C^s$ if for every real valued $C^s$ $g$, with open domain $B$, $g \circ f$ is $C^s$ on $A \cap f^{-1}(B)$. 
+\end{definition}
+
+This definition is really saying that $f$ is $C^s$, if pulling back along $f$ gives a morphism $f^*: C^s(N,R) \rightarrow C^s(M,R)$ defined appropriately. Furthermore, Hicks makes note of the fact that $r$, $k$ and $s$ are independent. Thus, as a special case, $f$ pulls back the charts on $N$ if and only if $s \leq k$.\\
+
+There is a local version of this structure condition. 
+
+\begin{definition}\label{restriction C^s}
+Let $f$ be $N$-valued with domain not neccesarily open. We say that $f$ is $C^s$ at $p$, a point in the domain of $f$, if there exists an open neighborhood $U$ of $p$ such that $f|_{U}$ is $C^s$ in the sense of definition \ref{C^s map of manifolds}. 
+\end{definition}
+
+Hicks notes that if $f$ is $C^s$ at every point of it's domain, then the domain of $f$ is open.\\ 
+
+The following theorem of Whitney gives us reason to specialize to the case of $C^\infty$ structures. 
+
+\begin{proposition}
+Every $C^r$ atlas for $r \geq 1$ contains a $C^\infty$ atlas.
+\end{proposition}
+
+Some subcollection of charts are all $C^\infty$ related and furthermore, are themselves maximal. 
+
+\begin{problem}\label{pointwise C infinity}
+The map $f:A \rightarrow N$ is $C^\infty$ on $A$ iff $f$ is $C^\infty$ pointwise on $A$.  
+\end{problem}
+
+\begin{solution}
+Suppose $f:A \rightarrow N$ is $C^\infty$ on $A$ let $p$ be a point of $A$. Since $A$ is open we let it be the requisite neighborhood.\\
+
+Suppose that $f$ is $C^\infty$ pointwise on $A$. Take any $g:B \rightarrow R$ be $C^\infty$ on $B$ open in $N$. This says for each $p \in A$ there exists a neighborhood $V_p$ such that for every chart $(\phi, U)$ then $g \circ f|_{V_p} \circ \phi^{-1}$ is $C^\infty$ on $\phi(V_p \cap f^{-1}(B) \cap U)$. Furthermore, $V_p \subset A$. We want to show that $f$ is $C^s$ on $A$ in the sense of definition \ref{C^s map of manifolds}.\\ 
+
+Clearly, $\cup_{p \in A}V_p = A$. Since $f$ restricted to any $V_p$ of $A$ is $C^s$, $f$ is $C^s$ on $A$. \end{solution}
+
+
+\begin{problem}
+If $f:A \rightarrow N$ is $C^\infty$ on $A$ then $f$ restricted to any open subset $U$ is still $C^\infty$.
+\end{problem}
+
+\begin{solution}
+Take every point of $U \cap A$. By problem \ref{pointwise C infinity} there exists a neighborhood $U_p$ on which $f|_{U_p}$ is $C^\infty$.  Replace each neighborhood $U_p$ with the intersection $U \cap U_p$. Then definition \ref{restriction C^s} is satisfied. By probelm \ref{pointwise C infinity}, the result follows. 
+\end{solution}
+
+\begin{problem}
+Let $U_h$ be a set of open sets who's union is $A$ in $M$ and let $f_h:U_h \rightarrow N$ be $C^\infty$. Let $f$ be a function such that $f|_{U_h} = f_h$ for each $h$. Prove $f$ is $C^\infty$ on $A$. 
+\end{problem}
+
+\begin{solution}
+This follows directly from the argument given in the reverse direction of problem \ref{pointwise C infinity}. At any point $p \in A$, there exists an $h$ such that $p \in U_h$. Thus replace the $V_p$ in the proof of problem \ref{pointwise C infinity} with the $U_h$.
+\end{solution}
+
+\begin{problem}
+Let $A \subseteq R^n$. Let $f:A \rightarrow R^k$ be $C^\infty$. Let $B \subseteq R^k$ be an open subset with a $C^\infty$ function $g:B\rightarrow R$. Then $g \circ f$ is $C^\infty$ on $A \cap f^{-1}(B)$.   
+\end{problem}
+
+\begin{solution}
+Note that $R^n$ is itself a manifold with $C^\infty$ structure determined by the single chart $(id,R^n)$. The result follows by the fact that definition \ref{C^s map of manifolds} is satisfied. 
+\end{solution}
+
+\begin{problem}
+If $f:A \rightarrow N$ is $C^\infty$ on $A \subseteq M$, and $(\phi,U)$ is a chart on $M$, then $f \circ \phi^{-1}$ is $C^\infty$ on $\phi(A \cap U)$. 
+\end{problem}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}
+Let $P$ be a $C^{\infty}$ $s$-manifold. If $F:A\rightarrow N$ is $C^\infty$ on $A \subseteq M$ and $g:B \rightarrow P$ is $C^\infty$ on an open subset $B \subseteq N$ then $g \circ f$ is $C^\infty$ on $A \cap f^{-1}(B)$. 
+\end{problem}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{problem}
+The map $f:A \rightarrow N$ is $C^\infty$ on $A \subseteq M$ iff for every coordinate pair $(\phi,U)$ in a subatlas on $N$, the functions $x_i \circ f$ are $C^\infty$ on $A \cap f^{-1}(U)$, for $i = 1,...,d$ and $x_i = u_i \circ \phi$.
+\end{problem}
+
+\begin{solution}
+Suppose that $f:A \rightarrow N$ is $C^\infty$ on $A \subseteq M$. By definition \ref{projection}, $\phi$ is $C^\infty$ and thus $u_i \circ \phi$ is smooth. Thus, each $x_i$ is $C^\infty$ on $U$ the result in the first direction follows. \\
+
+Suppose for every coordinate pair $(\phi,U)$ in a subatlas on $N$, the functions $x_i \circ f$ are $C^\infty$ on $A \cap f^{-1}(U)$. Let $g:B \rightarrow R$. 
+\end{solution}
+
+\begin{definition}
+Let $C^\infty(A,N)$ denote the set of $C^\infty$ functions mapping an open set $A$ in a manifold $M$ into a manifold $N$. 
+\end{definition}
+
+\subsection{Vectors and vector fields}
+
+\begin{definition}
+Let $m$ be a point of $R^n$. If $X_m$ is a euclidean vector with tail at $m$, and $f$ is a $C^\infty$ function defined in a neighborhood of $m$, define $X_mf = X_m \cdot (\nabla f)_m$ where $(\nabla f)_m$ is the gradient vector field of $f$ at $m$. 
+\end{definition}
+
+\begin{proposition}
+It follows from the definition of the dot product that 
+\begin{enumerate}
+\item $X_m(af+bg) = aX_mf+bX_mg$
+\item $X_m(fg) = f(m)X_mg+g(m)X_mf$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{align*}
+X_m(af+bg) &= X_m \cdot (\nabla (af+bg))_m\\
+ &=aX_m \cdot (\nabla f)_m+bX_m \cdot (\nabla g)_m \\
+ &= aX_mf+bX_mg
+\end{align*}\\
+
+\begin{align*}
+X_m(fg) &= X_m \cdot (\nabla (fg))_m\\
+ &= X_m \cdot (f(m)(\nabla g)_m+g(m)(\nabla f)_m \\
+ &= f(m)X_mg+g(m)X_mf
+\end{align*}
+\end{proof}
+
+
+
+\newpage
+\bibliographystyle{alpha} % We choose the "alpha" reference style
+\bibliography{HicksCh1ref} % Entries are in the "refs.bib" file
+
+\end{document}
