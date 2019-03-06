@@ -29,6 +29,9 @@
 \newtheorem{proposition}{Proposition}
 
 \theoremstyle{problemstyle}
+\newtheorem{lemma}{lemma}
+
+\theoremstyle{problemstyle}
 \newtheorem{theorem}{Theorem}
 
 \setlength\parindent{0pt}
@@ -79,7 +82,7 @@ Let $M$ be a set. A chart on $M$ is a pair $(\phi,U)$ such that $U$ is a subset 
 \end{definition}
 
 \begin{definition}
-Two charts, $(\phi,U)$ and $(\theta,V)$ on $M$ are $C^r$ related if $\phi \circ \theta^{-1}$ and $\theta \circ \phi^{-1}$ are $C^r$ on $\theta(U \cap V)$ and $\phi(U \cap V)$ respectively. 
+Two charts, $(\phi,U)$ and $(\theta,V)$ on $M$ are $C^r$ related if $\phi \circ \theta^{-1}$ and $\theta \circ \phi^{-1}$ are $C^r$ on $\theta(U \cap V)$ and $\phi(U \cap V)$ respectively. Note that by definition 1, $\theta(U \cap V)$ and $\phi(U \cap V)$ must be open. 
 \end{definition}
 
 \begin{definition}\label{subatlas}
@@ -95,12 +98,21 @@ Let $\{(\theta_h,U_h)\}_{h \in H}$ be a subatlas. Order the collection of all su
 \end{proof}
 
 \begin{proposition}
-Every subatlas induces a topology on $M$ and this topology is the same as the topology induced by the maximal subatlas. Let $\{(\phi_h,U_h)\}_{h \in H}$ be a subatlas on $M$. For all open sets $A$ of $R^n$, define the topology of $M$ to be the topology with sub-base given by the sets $\phi_h^{-1}(U_h \cap A)$.
+Every subatlas induces a topology on $M$.  More specifically, let $\{(\phi_h,U_h)\}_{h \in H}$ be a subatlas on $M$. Let $A$ be a subset of $M$. Define the induced topology on $M$ as follows. We say that $A$ is open in $M$ if for any chart $(\phi_h,U_h)$, $\phi_h(A \cap U_h)$ is open in $\mathbb{R}^n$. This is the coarsest topology which makes the charts continuous. Note that by the comment in definition 5, each coordinate domain is open in $M$. 
+\end{proposition}
+
+\begin{proof}
+Let $(\phi, U)$ be any chart. Clearly, $\phi(\varnothing \cap U) = \varnothing$ which is open in $\mathbb{R}^n$. Similarly,  $\phi(M \cap U) = \phi(U)$ is open in $\mathbb{R}^n$. Therefore, $M$ and $\varnothing$ are both open. Suppose $A$ and $B$ are open. Since each chart is injective, $\phi(U \cap A \cap B) = \phi(U \cap A) \cap \phi(U\cap B)$ thus $A \cap B$ is open. Let $\{A_i\}_{i \in I}$ be an arbitrary collection of open sets. We have $\phi((\cup_iA_i) \cap U) = \cup_i\phi(A_i \cap U)$, a union of open sets. Thus the collection of open sets is closed under arbitrary union and finite intersection. 
+\end{proof}
+
+\begin{proposition}
+The topology induced by a subatlas is the same as the topology induced by the maximal subatlas.
 \end{proposition}
 
 \begin{proof}
 Suppose $(\phi,U)$ is a chart which is compatible with a subatlas $\{(\phi_h,U_h)\}_{h \in H}$, but is not contained in that atlas, we will show that $(\phi,U) \cup \{(\phi_h,U_h)\}_{h \in H}$ induces the same topology on $M$ as $\{(\phi_h,U_h)\}_{h \in H}$.\\\\
-Pick an open set $A$ in $R^n$, we show that $\phi^{-1}(U \cap A)$ was already open in the topology induced by $\{(\phi_h,U_h)\}_{h \in H}$. Note that $U \cap A \cap U_h$ is an open set in $R^n$ for all $h$. Since $\phi_h\circ\phi^{-1}$ is an open map, $\phi_h\circ\phi^{-1}(U\cap A \cap U_h)$ is open in $R^n$. It follows that $\phi_h^{-1}(\phi_h\circ\phi^{-1}(U\cap A \cap U_h)) = \phi^{-1}(U\cap A \cap U_h)$ is open in $M$ for all $h$. Clearly, $$U \cap A = \bigcup_{h \in H}U\cap A\cap U_h$$ from which it follows that $$\phi^{-1}(U \cap A) = \bigcup_{h \in H}\phi^{-1}(U\cap A\cap U_h)$$ is open in $M$. 
+Clearly the topology induced by $(\phi,U) \cup \{(\phi_h,U_h)\}_{h \in H}$ will be contained in the topology induced by $\{(\phi_h,U_h)\}_{h \in H}$ so it just remains to show that if $A$ is open with respect to $\{(\phi_h,U_h)\}_{h \in H}$, then it is still open with respect to $(\phi,U) \cup \{(\phi_h,U_h)\}_{h \in H}$. That is, we must show that $\phi(A \cap U)$ is open in $\mathbb{R}^n$.\\\\
+Since $(\phi,U)$ is a chart which is compatible with the subatlas, $U$ is open in $M$ under the previous topology. Since $A$ is open in $M$ under the previous topology as well, we have that $\phi_h(A \cap U \cap U_h)$ is open for all charts. Since $\phi\circ\phi_h$ is bicontinuous, $\phi(A \cap U \cap U_h) = \phi\circ\phi_h(\phi_h(A \cap U \cap U_h))$ is open for all charts. Noting that $$\phi(A \cap U) = \phi(A \cap U \cap M) = \phi(A \cap U \cap (\cup_hU_h)) = \cup_h\phi(A \cap U \cap U_h)$$ we see that $\phi(A \cap U)$ is the union of open sets and is therefore open.  
 \end{proof}
 
 \begin{proposition}
